@@ -1,0 +1,159 @@
+body{
+    background:#071633;
+    color:white;
+    font-family:'Segoe UI', Arial, sans-serif;
+    margin:0;
+}
+
+.header{
+    background:#071633;
+    padding:32px;
+}
+
+.header h1{
+    margin:0;
+    font-size:32px;
+}
+
+.header p{
+    color:#b8c7e8;
+}
+
+.container{
+    padding:30px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#0a1b3f;
+    border:1px solid #2d4778;
+    border-radius:16px;
+    padding:24px;
+}
+
+.card h3{
+    margin:0;
+    color:white;
+}
+
+.card h2{
+    font-size:38px;
+    margin:12px 0 0;
+}
+
+.section{
+    background:#0a1b3f;
+    border:1px solid #2d4778;
+    padding:24px;
+    margin-top:24px;
+    border-radius:16px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:16px;
+}
+
+th{
+    background:#020817;
+    color:#b8d4ff;
+    padding:14px;
+    text-align:left;
+}
+
+td{
+    border-bottom:1px solid #263b66;
+    padding:14px;
+    color:white;
+}
+
+.green{
+    color:#00ff7f;
+    font-weight:bold;
+}
+
+.yellow{
+    color:#ffd700;
+    font-weight:bold;
+}
+
+.red{
+    color:#ff4d4d;
+    font-weight:bold;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    display:inline-block;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+.tree{
+    margin-top:20px;
+}
+
+.tree-root{
+    background:#020817;
+    border:1px solid #2d4778;
+    padding:16px;
+    border-radius:10px;
+    font-weight:bold;
+    color:#b8d4ff;
+    margin-bottom:18px;
+}
+
+.tree-branch{
+    margin-left:30px;
+    padding-left:24px;
+    border-left:2px solid #2563eb;
+    margin-bottom:22px;
+}
+
+.tree-node{
+    background:#102552;
+    border:1px solid #2d4778;
+    padding:14px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.tree-node.incident{
+    color:#ffd700;
+}
+
+.tree-child{
+    margin-left:24px;
+    margin-top:10px;
+    background:#071633;
+    border:1px solid #263b66;
+    padding:14px;
+    border-radius:10px;
+    line-height:1.8;
+}
+.ai-output{
+    white-space:pre-wrap;
+    line-height:1.7;
+    background:#071633;
+    border:1px solid #263b66;
+    border-radius:10px;
+    padding:16px;
+    color:#dbeafe;
+    font-family:'Segoe UI', Arial, sans-serif;
+}
+.tree-node.anomaly{
+    color:#ffd700;
+}

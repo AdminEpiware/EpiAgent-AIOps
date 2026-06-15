@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EpiAgent AIOps - Incident Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <h1>{{ signal.short_name }} Incident Dashboard</h1>
+    <p>Incident investigation layer generated from Splunk operational signals</p>
+</div>
+
+<div class="container">
+
+    <div class="cards">
+        <div class="card">
+            <h3>Open Incidents</h3>
+            <h2 class="red">{{ incident_data.open_incidents }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>High Severity</h3>
+            <h2 class="yellow">{{ incident_data.high_incidents }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Critical Incidents</h3>
+            <h2 class="red">{{ incident_data.critical_incidents }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Investigation Status</h3>
+            <h2 class="green">ACTIVE</h2>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Incident Dependency Map</h2>
+
+        <div class="tree">
+            <div class="tree-root">{{ signal.name }}</div>
+
+            {% if incident_data.incidents %}
+                {% for incident in incident_data.incidents %}
+                <div class="tree-branch">
+
+                    <div class="tree-node incident">
+                        {{ incident.id }} — {{ incident.title }}
+                    </div>
+
+                    <div class="tree-child">
+                        <div><b>Severity:</b> {{ incident.severity }}</div>
+                        <div><b>Status:</b> {{ incident.status }}</div>
+                        <div><b>Category:</b> {{ incident.category }}</div>
+                        <div><b>Evidence:</b> {{ incident.evidence }}</div>
+                        <div><b>Owner:</b> {{ incident.owner }}</div>
+                    </div>
+
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="tree-branch">
+                    <div class="tree-node incident">
+                        No active incident detected for this signal area
+                    </div>
+                    <div class="tree-child">
+                        <div>No open incident currently detected for {{ signal.short_name }}.</div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Root Cause Analysis</h2>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Primary Root Cause</h3>
+                <h2 class="yellow">{{ rootcause_data.primary_root_cause }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Confidence</h3>
+                <h2 class="green">{{ rootcause_data.confidence }}%</h2>
+            </div>
+
+            <div class="card">
+                <h3>Root Causes Found</h3>
+                <h2 class="yellow">{{ rootcause_data.root_cause_count }}</h2>
+            </div>
+        </div>
+
+        <div class="tree">
+            <div class="tree-root">Issue → Root Cause</div>
+
+            {% for cause in rootcause_data.root_causes %}
+            <div class="tree-branch">
+                <div class="tree-node incident">
+                    {{ cause.id }} — {{ cause.title }}
+                </div>
+
+                <div class="tree-child">
+                    <div><b>Severity:</b> {{ cause.severity }}</div>
+                    <div><b>Affected Area:</b> {{ cause.affected_area }}</div>
+                    <div><b>Confidence:</b> {{ cause.confidence }}%</div>
+                    <div><b>Evidence:</b> {{ cause.evidence }}</div>
+                    <div><b>Reasoning:</b> {{ cause.reasoning }}</div>
+                    <div><b>Next Step:</b> {{ cause.next_step }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Recommended Actions</h2>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Response Priority</h3>
+                {% if response_data.priority == 'HIGH' %}
+                    <h2 class="red">{{ response_data.priority }}</h2>
+                {% elif response_data.priority == 'MEDIUM' %}
+                    <h2 class="yellow">{{ response_data.priority }}</h2>
+                {% else %}
+                    <h2 class="green">{{ response_data.priority }}</h2>
+                {% endif %}
+            </div>
+
+            <div class="card">
+                <h3>Actions Generated</h3>
+                <h2 class="yellow">{{ response_data.response_count }}</h2>
+            </div>
+
+            <div class="card">
+                <h3>Response Status</h3>
+                <h2 class="green">READY</h2>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Action ID</th>
+                <th>Recommended Action</th>
+                <th>Priority</th>
+                <th>Owner</th>
+                <th>Expected Outcome</th>
+            </tr>
+
+            {% for action in response_data.recommended_actions %}
+            <tr>
+                <td><b>{{ action.id }}</b></td>
+                <td>
+                    <b>{{ action.title }}</b><br>
+                    {{ action.action }}
+                </td>
+                <td>
+                    {% if action.priority == 'P1' %}
+                        <span class="red">{{ action.priority }}</span>
+                    {% elif action.priority == 'P2' %}
+                        <span class="yellow">{{ action.priority }}</span>
+                    {% else %}
+                        <span class="green">{{ action.priority }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ action.owner }}</td>
+                <td>{{ action.expected_outcome }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <p>{{ response_data.ai_analysis }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Incident Insights</h2>
+        <p>{{ incident_data.ai_analysis }}</p>
+    </div>
+
+    <div class="section">
+        <a class="btn" href="/investigate/{{ signal.id }}">Back to Investigation</a>
+        <a class="btn" href="/">Back to Operations Board</a>
+    </div>
+
+</div>
+
+</body>
+</html>

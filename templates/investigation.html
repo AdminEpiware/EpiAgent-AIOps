@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EpiAgent AIOps - Investigation Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <h1>{{ signal.investigation_title }}</h1>
+    <p>{{ signal.description }}</p>
+</div>
+
+<div class="container">
+
+    <div class="cards">
+        <div class="card">
+            <h3>System Health</h3>
+            {% if data.health == 'GREEN' %}
+                <h2 class="green">{{ data.health }}</h2>
+            {% elif data.health == 'WARNING' %}
+                <h2 class="yellow">{{ data.health }}</h2>
+            {% else %}
+                <h2 class="red">{{ data.health }}</h2>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h3>Risk Score</h3>
+            <h2 class="yellow">{{ data.score }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Detected Errors</h3>
+            <h2 class="red">{{ data.errors|length }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Investigation Status</h3>
+            <h2 class="green">ACTIVE</h2>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Investigation Path</h2>
+
+        <table>
+            <tr>
+                <th>Investigation Area</th>
+                <th>What It Shows</th>
+                <th>Current Findings</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td><b>Monitoring Evidence</b></td>
+                <td>{{ signal.monitoring_focus }}</td>
+                <td>{{ data.sources|length }} relevant source group(s), {{ data.errors|length }} error pattern(s)</td>
+                <td><a class="btn" href="/status/{{ signal.id }}">View Monitoring Report</a></td>
+            </tr>
+
+            <tr>
+                <td><b>Anomaly Investigation</b></td>
+                <td>{{ signal.anomaly_focus }}</td>
+                <td>{{ anomaly_data.anomaly_count }} anomaly signal(s) detected</td>
+                <td><a class="btn" href="/anomalies/{{ signal.id }}">Investigate Anomalies</a></td>
+            </tr>
+
+            <tr>
+                <td><b>Incident Investigation</b></td>
+                <td>{{ signal.incident_focus }}</td>
+                <td>{{ incident_data.open_incidents }} open incident(s)</td>
+                <td><a class="btn" href="/incidents/{{ signal.id }}">Investigate Incidents</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Recommended Investigation Flow</h2>
+        <p>
+            Start with monitoring evidence for {{ signal.short_name }}, then review related anomalies,
+            then confirm whether the signal has become an active incident.
+        </p>
+    </div>
+
+    <div class="section">
+        <a class="btn" href="/">Back to Operations Board</a>
+    </div>
+
+</div>
+
+</body>
+</html>

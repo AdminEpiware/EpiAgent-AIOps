@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EpiAgent AIOps - Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <h1>EpiAgent AIOps Monitoring Report</h1>
+    <p>Monitoring evidence and operational signal summary from Splunk</p>
+</div>
+
+<div class="container">
+
+    <div class="cards">
+        <div class="card">
+            <h3>System Health</h3>
+            <h2 class="yellow">{{ data.health }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Incident Score</h3>
+            <h2 class="yellow">{{ data.score }}/100</h2>
+        </div>
+
+        <div class="card">
+            <h3>Detected Server Errors</h3>
+            <h2 class="red">{{ data.errors|length }}</h2>
+        </div>
+    </div>
+
+
+   <div class="section">
+    <h2>AI Incident Summary</h2>
+    <pre class="ai-output">{{ data.ai_summary }}</pre>
+   </div>
+
+    <div class="section">
+        <h2>Server Error Evidence</h2>
+        <table>
+            <tr><th>Error Signal</th></tr>
+            {% for error in data.errors %}
+            <tr><td>{{ error }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Top Splunk Log Sources</h2>
+        <table>
+            <tr>
+                <th>Source Type</th>
+                <th>Event Count</th>
+            </tr>
+            {% for source in data.sources %}
+            <tr>
+                <td>{{ source.sourcetype }}</td>
+                <td>{{ source.count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>AI Operational Recommendation</h2>
+        <p>{{ data.recommendation }}</p>
+    </div>
+
+    <div class="section">
+        <a class="btn" href="/">Back to Operations Board</a>
+    </div>
+
+</div>
+</body>
+</html>

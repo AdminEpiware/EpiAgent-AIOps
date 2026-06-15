@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EpiAgent AIOps</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="header">
+    <h1>EpiAgent AIOps Operations Board</h1>
+    <p>AI-powered observability and incident intelligence platform built on Splunk</p>
+</div>
+
+<div class="container">
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Events</h3>
+            <h2>{{ "{:,}".format(data.total_events) }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Server Errors</h3>
+            <h2 class="red">{{ data.server_error_count }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Incident Score</h3>
+            <h2 class="yellow">{{ data.score }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>System Health</h3>
+            {% if data.health == 'GREEN' %}
+                <h2 class="green">{{ data.health }}</h2>
+            {% elif data.health == 'WARNING' %}
+                <h2 class="yellow">{{ data.health }}</h2>
+            {% else %}
+                <h2 class="red">{{ data.health }}</h2>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Operational Signals</h2>
+
+        <table>
+            <tr>
+                <th>Signal Area</th>
+                <th>Description</th>
+                <th>Health</th>
+                <th>Risk Score</th>
+                <th>Errors</th>
+                <th>Action</th>
+            </tr>
+
+            {% for system in systems %}
+            <tr>
+                <td><b>{{ system.name }}</b></td>
+                <td>{{ system.description }}</td>
+
+                <td>
+                    {% if system.health == 'GREEN' %}
+                        <span class="green">{{ system.health }}</span>
+                    {% elif system.health == 'WARNING' %}
+                        <span class="yellow">{{ system.health }}</span>
+                    {% else %}
+                        <span class="red">{{ system.health }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if system.risk_score >= 80 %}
+                        <span class="red">{{ system.risk_score }}</span>
+                    {% elif system.risk_score >= 50 %}
+                        <span class="yellow">{{ system.risk_score }}</span>
+                    {% else %}
+                        <span class="green">{{ system.risk_score }}</span>
+                    {% endif %}
+                </td>
+
+                <td>{{ system.errors }}</td>
+
+                <td>
+                    <a class="btn" href="/investigate/{{ system.id }}">Investigate</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
