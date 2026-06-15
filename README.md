@@ -18,29 +18,29 @@ By combining observability data with AI-driven analysis, EpiAgent AIOps transfor
 
 ## Portfolio Dashboard
 
-![Portfolio Dashboard](docs/images/dashboard.png)
+![Portfolio Dashboard](docs/screenshots/dashboard.png)
 
 ## Monitoring Report
 
-![Monitoring Report](docs/images/monitoring-report.png)
+![Monitoring Report](docs/screenshots/monitoring-report.png)
 
 ## Investigation Hub
 
-![Investigation Hub](docs/images/investigation-hub.png)
+![Investigation Hub](docs/screenshots/investigation-hub.png)
 
 ## Anomaly Dashboard
 
-![Anomaly Dashboard](docs/images/anomaly-dashboard.png)
+![Anomaly Dashboard](docs/screenshots/anomaly-dashboard.png)
 
 ## Incident Dashboard
 
-![Incident Dashboard](docs/images/incident-dashboard.png)
+![Incident Dashboard](docs/screenshots/incident-dashboard.png)
 
 ## Root Cause Analysis & Recommended Actions
 
-![Recommended Actions](docs/images/root-cause-analysis.png)
+![Recommended Actions](docs/screenshots/root-cause-analysis.png)
 
-![Recommended Actions](docs/images/recommended-actions.png)
+![Recommended Actions](docs/screenshots/recommended-actions.png)
 ---
 ## Architecture Explanation
 
