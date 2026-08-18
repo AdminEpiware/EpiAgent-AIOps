@@ -1,448 +1,648 @@
-# EpiAgent PMO
+# EpiAgent AIOps
 
-### AI-Assisted Project Governance & Portfolio Risk Intelligence
+## AI-Assisted Operational Intelligence & Incident Investigation
 
-**From project execution data to explainable risk intelligence and AI-assisted management decisions.**
+**From operational telemetry to actionable incident intelligence.**
 
-> Software projects don't fail because teams stop working. They fail because risks stay invisible until it's too late.
+EpiAgent AIOps is a working AI-assisted operational intelligence and incident-investigation application built on Splunk. It transforms Splunk-derived operational telemetry into system-health signals, rule-based anomalies, structured incidents, probable root-cause analysis, and actionable response recommendations.
 
----
+The solution combines Splunk and SPL-based telemetry analysis, deterministic operational rules, specialized investigation agents, and Gemini-assisted interpretation while keeping operational decisions under human control.
 
-## Project Overview
-
-**EpiAgent PMO** is a working AI-assisted project governance and portfolio risk-management application that transforms GitLab project execution data into project-health visibility, explainable risk signals, and Gemini-powered management recommendations.
-
-The solution combines deterministic project-risk analytics with generative AI to support project and portfolio decision-making. Rather than using an LLM for every task, EpiAgent PMO separates explainable risk calculation from AI-assisted interpretation and keeps the final management decision with the human user.
-
-**Core workflow:** GitLab → Project Metrics → Deterministic Risk Engine → Gemini → Management Decision Support
+**Core workflow:** Observe → Detect → Investigate → Diagnose → Respond
 
 ---
 
-## Business Problem
+# Project Overview
 
-Project execution information can be distributed across issues, work status, blockers, critical tasks, and other delivery activity. Project and portfolio managers still need to interpret this information to understand delivery health, identify risks, communicate status, and determine corrective actions.
+Operations and engineering teams collect large volumes of logs and operational telemetry, but identifying meaningful signals, correlating incidents, investigating probable causes, and determining appropriate responses still requires significant interpretation.
 
-Traditional dashboards provide visibility, but visibility alone does not automatically create management intelligence.
+EpiAgent AIOps addresses the gap between:
 
-EpiAgent PMO addresses the gap between:
+**Operational Telemetry → Operational Decision Intelligence**
 
-**Project Execution Data → Management Decision Intelligence**
-
-The product is designed to help managers:
-
-* Consolidate project and portfolio health visibility
-* Identify blocked and critical work
-* Assess delivery risk consistently
-* Interpret project-health signals
-* Generate management-oriented recommendations
-* Support faster, better-informed project decisions
+Rather than replacing the observability platform with an LLM, the solution keeps **Splunk as the source of truth**, uses deterministic analysis for explainable operational signals, and applies Gemini where interpretation and recommendation add value.
 
 ---
 
-## Target Users
+# Business Problem
 
-### Primary Users
+During operational incidents, engineers may need to:
 
-* **PMO / Portfolio Managers** — portfolio-level project health and risk visibility
-* **Project / Program Managers** — project-level health, blockers, critical issues, and decision support
+- Review large volumes of telemetry
+- Identify abnormal operational patterns
+- Understand system health
+- Correlate errors and incident evidence
+- Investigate probable root causes
+- Determine appropriate corrective actions
+- Communicate operational findings clearly
 
-### Secondary Users
+Traditional observability platforms provide powerful telemetry and search capabilities, but operational teams still need to convert those signals into investigation context and decisions.
 
-* **Engineering / Delivery Managers** — software-delivery health and execution-risk visibility
-* **Leadership / Management** — concise project-health information and executive-oriented recommendations
-
-These are intended users based on the implemented solution design; they are not claims of customer adoption.
-
----
-
-## Solution
-
-EpiAgent PMO connects to GitLab project data, calculates project and portfolio metrics, applies deterministic risk logic, and uses Gemini to interpret structured risk signals and generate management-oriented recommendations.
-
-The application provides:
-
-* Portfolio-level project visibility
-* Project-level delivery-health metrics
-* Explainable risk scoring
-* Green / Yellow / Red health classification
-* Blocked and critical issue visibility
-* Gemini-powered executive recommendations
-* Management-oriented dashboard and report presentation
-
-The product is designed as **AI-assisted decision support**, not autonomous project management.
+EpiAgent AIOps is designed to structure that workflow from detection through recommended response.
 
 ---
 
-## Implemented MVP Scope
+# Target Users
 
-The working implementation covers the following capabilities:
+## Primary Users
 
-### Portfolio Management
+- **SRE / Observability Teams** — operational health analysis and incident investigation
+- **IT / Platform Operations** — system signals, incidents, probable causes, and response actions
+- **Application Support / Operations** — application failures and operational troubleshooting
 
-* Retrieves GitLab group projects dynamically
-* Provides portfolio-level project visibility
-* Surfaces at-risk projects and critical blockers
-* Presents overall portfolio health
+## Secondary Users
 
-### Project Health
+- **Engineering / Delivery Teams** — service-health and operational-risk visibility
+- **Engineering Leadership** — higher-level operational health and incident context
+- **Security / Access Operations** — investigation of the access-related signals supported by the implemented workflow
 
-* Retrieves project issue data
-* Calculates project execution metrics
-* Displays completion, in-progress, blocked, and critical work
-* Presents project health and risk score
-
-### Risk Intelligence
-
-* Applies deterministic risk rules
-* Produces a risk score from 0–100
-* Classifies project health as Green, Yellow, or Red
-
-### AI Decision Support
-
-* Sends structured project-health metrics to Gemini
-* Generates executive-oriented project interpretation
-* Identifies key risks
-* Recommends management actions
-* Provides delay assessment and PMO decision support
-
-### Delivery & Deployment
-
-* FastAPI-based application
-* Jinja2-based dashboard/report presentation
-* Docker containerization
-* Google Cloud Run deployment target
+These are intended users based on the solution design and are not claims of customer adoption.
 
 ---
 
-## Product Workflow
+# Solution
+
+EpiAgent AIOps integrates with Splunk Enterprise through the Splunk Python SDK and uses SPL queries to retrieve operational signals. Those signals are processed through deterministic operational logic and specialized agents for monitoring, anomaly detection, incident investigation, probable root-cause analysis, and response recommendations.
+
+Gemini provides an additional interpretation layer for human-readable operational analysis and recommendations.
+
+The product is designed as **AI-assisted operational decision support**, not autonomous infrastructure remediation.
+
+---
+
+# Implemented MVP Scope
+
+The working implementation covers:
+
+## Splunk Integration
+
+- Splunk Enterprise as the observability foundation and source of truth
+- Dedicated `epiagent` index for the demonstrated dataset
+- Splunk Python SDK integration
+- SPL-based operational queries
+
+## Operational Monitoring
+
+- Event-volume analysis
+- HTTP status and server-error analysis
+- Sourcetype visibility
+- Deterministic system-health classification
+- Incident scoring
+- Operational summaries
+
+## Rule-Based Anomaly Detection
+
+- Traffic/source concentration analysis
+- Elevated source activity detection
+- Server-error burst detection
+- Secure-access activity checks
+
+## Incident Investigation
+
+- Structured incident creation from operational evidence
+- Severity, status, category, evidence, and ownership context
+- Investigation views for operational analysis
+
+## Probable Root Cause Analysis
+
+- Correlation of incidents, anomalies, error context, source information, and system-health signals
+- Rule-based probable-cause analysis
+- Optional Gemini-assisted interpretation
+
+## Response Recommendations
+
+- Prioritized operational actions
+- Suggested ownership
+- Recommended investigation/remediation steps
+- Expected outcome context
+
+## AI-Assisted Interpretation
+
+- Gemini-based incident interpretation
+- Root-cause context
+- Business-impact interpretation
+- Recommended actions
+- Confidence-oriented response format
+
+## AI Fallback
+
+- Core rule-based operational analysis remains available when Gemini is disabled or unavailable
+- `AI_ENABLED` provides explicit control over AI usage
+
+---
+
+# Operational Workflow
 
 ```text
-GitLab Projects & Issues
-          |
-          v
-GitLab REST API
-          |
-          v
-Portfolio / Project Metrics
-          |
-          v
-Deterministic Risk Engine
-          |
-          v
-Risk Score + Health Classification
-          |
-          v
-Gemini AI Analysis
-          |
-          v
-Executive Risks + Recommended Actions
-          |
-          v
-Human Management Decision
+Operational Telemetry
+        |
+        v
+Splunk Enterprise
+        |
+        v
+SPL Analysis
+        |
+        v
+Monitoring
+        |
+        v
+Anomaly Detection
+        |
+        v
+Incident Investigation
+        |
+        v
+Probable Root Cause
+        |
+        v
+Response Recommendations
+        |
+        v
+Human Operations Decision
 ```
 
 In short:
 
-**Data → Metrics → Risk → AI → Decision**
+**Observe → Detect → Investigate → Diagnose → Respond**
 
 ---
 
-## AI Strategy
+# Architecture
 
-EpiAgent PMO uses a hybrid decision-support architecture rather than relying entirely on generative AI.
+![Architecture](docs/architecture.png)
 
-### 1. Deterministic Analytics
+## Architecture Philosophy
 
-Predictable and explainable calculations are handled by application logic:
+EpiAgent AIOps separates the operational workflow into distinct layers:
 
-* Project metrics
-* Completion rate
-* Blocked and critical issue counts
-* Risk score
-* Project-health classification
+### 1. Splunk — Source of Truth
 
-### 2. Generative AI
+Splunk Enterprise stores and exposes the operational telemetry used by the application.
 
-Gemini is used where interpretation and synthesis add value:
+### 2. SPL + Deterministic Rules — Operational Intelligence
 
-* Executive summary generation
-* Risk interpretation
-* Recommended actions
-* Delay assessment
-* PMO decision support
+SPL queries retrieve relevant telemetry, while deterministic rules calculate and classify operational conditions such as system health, incident scores, error thresholds, and anomalies.
 
-### 3. Human Oversight
+### 3. Specialized Agents — Investigation Workflow
 
-Gemini recommendations are advisory. The application does not autonomously execute project-management decisions. Final judgment and action remain with the manager.
+Dedicated agents structure different stages of operational investigation.
 
-**AI design principle:** Explainable Analytics + Generative AI + Human Oversight
+### 4. Gemini — Interpretation Layer
 
----
+Gemini interprets structured operational evidence and generates human-readable analysis and recommendations.
 
-## Risk Engine
+### 5. Human — Operational Decision
 
-The deterministic Risk Engine converts project execution signals into an explainable risk score.
+The system recommends actions but does not autonomously execute infrastructure remediation.
 
-Implemented risk logic includes:
-
-* Completion below 50% → +20 risk
-* Each blocked issue → +25 risk
-* Each critical issue → +20 risk
-* Maximum risk score → 100
-
-### Health Classification
-
-| Risk Score | Health Status |
-|---:|---|
-| 0–39 | Green |
-| 40–69 | Yellow |
-| 70–100 | Red |
-
-Completion percentage is calculated as:
-
-`Completed Tasks / Total Tasks × 100`
-
-The deterministic risk layer establishes consistent project-health signals before Gemini performs management-oriented interpretation.
+**Design principle:** Telemetry + Rules + Agents + Generative AI + Human Oversight
 
 ---
 
-## System Architecture
+# Splunk Integration
 
-![EpiAgent PMO Architecture](docs/architecture.png)
+EpiAgent AIOps uses Splunk Enterprise as the observability foundation. The demonstrated Splunk tutorial/sample logs are ingested into a dedicated index named `epiagent`.
 
-### Architecture Flow
+The Python backend connects to Splunk using the Splunk SDK and executes SPL queries to derive operational signals including:
 
-```text
-GitLab Projects
-      |
-      v
-GitLab REST API
-      |
-      v
-EpiAgent PMO / FastAPI
-      |
-      +-------------------------+
-      |                         |
-      v                         v
-Portfolio & Project       Deterministic
-Metrics                   Risk Engine
-      |                         |
-      +------------+------------+
-                   |
-                   v
-          Project Health Context
-                   |
-                   v
-             Gemini 2.5 Flash
-                   |
-                   v
-       AI Executive Recommendation
-                   |
-                   v
-       Dashboard / Report Experience
-```
+- Total event volume
+- HTTP status distribution
+- Sourcetype distribution
+- HTTP 5xx/server-error activity
+- Recent server-error evidence
+- Operational patterns used by the investigation workflow
 
-The application is containerized with Docker and designed for deployment to Google Cloud Run.
+Splunk remains the authoritative telemetry source; Gemini is used as an interpretation layer rather than a replacement for observability analytics.
 
 ---
 
-## Technology & Integrations
+# AIOps Agent Workflow
+
+Five specialized operational agents are implemented.
+
+| Agent | Responsibility |
+|---|---|
+| **Monitoring Agent** | Operational health, event context, and monitoring summaries |
+| **Anomaly Agent** | Rule-based detection of abnormal operational patterns |
+| **Incident Agent** | Structured incident identification and investigation context |
+| **Root Cause Agent** | Probable root-cause analysis using correlated operational evidence |
+| **Response Agent** | Recommended operational actions and response guidance |
+
+The agent workflow structures the operational investigation process while deterministic analysis and Splunk-derived evidence remain central to the system.
+
+---
+
+# Monitoring Agent
+
+The Monitoring Agent provides operational context derived from Splunk and the deterministic Rule Engine.
+
+Implemented outputs include:
+
+- Total events
+- Server-error types
+- Total server errors
+- System health
+- Incident score
+- Rule-based recommendation
+- Error summary
+- Top sourcetypes
+- Splunk availability/status
+- Optional Gemini-assisted summary
+
+---
+
+# Anomaly Detection Agent
+
+The Anomaly Agent performs **rule-based anomaly detection** using Splunk-derived operational signals.
+
+Implemented patterns include:
+
+- High traffic/source concentration
+- Elevated source activity
+- Server-error bursts
+- Elevated server-error activity
+- Secure-access activity patterns
+
+This implementation uses deterministic thresholds and should not be interpreted as a trained machine-learning anomaly-detection model.
+
+---
+
+# Incident Investigation Agent
+
+The Incident Agent converts significant operational error patterns into structured incident information.
+
+Incident context can include:
+
+- Incident ID
+- Title
+- Severity
+- Status
+- Category
+- Supporting evidence
+- Owner
+
+This provides a structured transition from operational signals to incident investigation.
+
+---
+
+# Probable Root Cause Analysis
+
+The Root Cause Agent combines available operational context such as:
+
+- Signal context
+- Incidents
+- Anomalies
+- Event counts
+- Server-error information
+- Source information
+- System-health context
+
+The result is a **probable root-cause assessment**, supported by rule-based analysis and optional Gemini interpretation.
+
+The project does not claim guaranteed causal determination.
+
+---
+
+# Response Recommendations
+
+The Response Agent converts investigation findings into structured operational guidance.
+
+Recommendations can include:
+
+- Priority
+- Owner
+- Action
+- Expected outcome
+
+Depending on the investigated signal, recommendations can guide engineers toward areas such as backend health, application errors, recent deployments, capacity, upstream dependencies, access activity, or transaction-processing flows.
+
+The application recommends actions; it does not autonomously execute remediation.
+
+---
+
+# AI Strategy
+
+EpiAgent AIOps uses generative AI selectively rather than making the LLM responsible for core operational analysis.
+
+## Deterministic Operational Intelligence
+
+Splunk, SPL, and application rules handle measurable and explainable signals such as:
+
+- Event counts
+- HTTP/server errors
+- Source concentration
+- Threshold-based anomalies
+- System health
+- Incident scoring
+
+## Generative AI
+
+Gemini is used for higher-level interpretation such as:
+
+- Severity interpretation
+- Root-cause context
+- Business-impact context
+- Recommended action
+- Human-readable operational summaries
+
+## Human Oversight
+
+Gemini output is advisory. Operations engineers retain responsibility for validating findings and deciding what action to take.
+
+**AI principle:** Deterministic Operational Intelligence + Generative AI + Human Oversight
+
+---
+
+# AI Fallback & Resilience
+
+A key design decision is that core operational analysis does not depend entirely on LLM availability.
+
+The application supports an `AI_ENABLED` configuration flag.
+
+When Gemini is disabled or unavailable:
+
+**Splunk + SPL + Rule-Based Analysis + Operational Agents continue to provide core operational intelligence.**
+
+When Gemini is available:
+
+**Gemini adds interpretation and recommendation support on top of the structured operational evidence.**
+
+This provides graceful degradation and keeps the deterministic operational workflow available independently of the generative-AI layer.
+
+---
+
+# Project Flow
+
+![Project Flow](docs/project-flow.png)
+
+---
+
+# Technology & Integrations
 
 | Technology | Purpose |
 |---|---|
-| **Python** | Primary application implementation |
-| **FastAPI** | Application/backend and request workflow |
-| **GitLab REST API** | Project and issue data integration |
-| **Gemini 2.5 Flash** | AI interpretation and management recommendations |
-| **Jinja2** | Dashboard and report rendering |
-| **Docker** | Application containerization |
-| **Google Cloud Run** | Cloud deployment target |
+| **Splunk Enterprise 10.4.0** | Observability foundation used by the project |
+| **SPL** | Operational telemetry querying and analysis |
+| **Splunk Python SDK** | Application-to-Splunk integration |
+| **Python** | Core application and operational logic |
+| **Flask** | Web application/backend |
+| **Gemini 2.5 Flash** | AI-assisted operational interpretation and recommendations |
+| **Jinja2** | Dashboard/report templates |
+| **HTML / CSS** | User-interface presentation |
 
 ---
 
-## Product & Engineering Decisions
+# Product & Engineering Decisions
 
-### Use Live Project Data
+## Keep Splunk as the Source of Truth
 
-GitLab integration allows the application to derive portfolio and project context from project execution data instead of relying only on manually entered information.
+The application builds on Splunk rather than attempting to replace the observability platform with an LLM.
 
-### Separate Risk Calculation from Generative AI
+## Separate Deterministic Analysis from Generative AI
 
-Risk scoring and health classification use deterministic logic so that core project-health signals remain predictable and explainable.
+Operational metrics, thresholds, health classification, and rule-based anomalies remain explainable and predictable. Gemini is used after structured evidence is available.
 
-Gemini is applied after those signals are calculated, where natural-language interpretation and recommendation generation provide greater value.
+## Structure Investigation Through Specialized Agents
 
-### Keep Humans in the Decision Loop
+Monitoring, anomaly, incident, root-cause, and response responsibilities are separated into specialized components to create a clear investigation workflow.
 
-The application provides recommendations rather than automatically executing project-management actions. This preserves management oversight over delivery decisions.
+## Support AI-Off Operation
 
-### Modular Application Structure
+The `AI_ENABLED` configuration allows core rule-based operational analysis to continue without Gemini.
 
-The implementation separates external integration, portfolio aggregation, risk logic, AI recommendation generation, dashboard orchestration, and report presentation into distinct application components.
+## Keep Humans in the Response Loop
 
----
-
-## Portfolio Dashboard
-
-The portfolio dashboard provides portfolio-wide visibility into project health and delivery risk.
-
-![Portfolio Dashboard](docs/portfolio.png)
-
-Key information includes:
-
-* Total projects
-* At-risk projects
-* Critical blockers
-* Overall portfolio health
+Response actions are recommendations. Infrastructure or application changes are not executed autonomously.
 
 ---
 
-## Project Dashboard
+# Screenshots
 
-The project dashboard provides detailed project-level execution and risk visibility.
+## Operational Dashboard
 
-![Project Dashboard](docs/project-dashboard.png)
+![Operational Dashboard](docs/screenshots/dashboard.png)
 
-Key information includes:
+## Monitoring Report
 
-* Project health
-* Risk score
-* Total tasks
-* Completion percentage
-* In-progress work
-* Blocked tasks
-* Critical issues
-* AI-assisted executive recommendation
+![Monitoring Report](docs/screenshots/monitoring-report.png)
 
----
+## Investigation Hub
 
-## Demo
+![Investigation Hub](docs/screenshots/investigation-hub.png)
 
-**EpiAgent PMO — Working Demo**
+## Anomaly Dashboard
 
-https://www.youtube.com/watch?v=Bzs7Tcqk5vQ
+![Anomaly Dashboard](docs/screenshots/anomaly-dashboard.png)
 
-### Demo Flow
+## Incident Dashboard
 
-1. Open the Portfolio Dashboard
-2. Review portfolio health
-3. Select a project
-4. Open the Project Dashboard
-5. Review project metrics, risk score, and health
-6. Review management-oriented project information
-7. Review AI-assisted recommendations
+![Incident Dashboard](docs/screenshots/incident-dashboard.png)
+
+## Root Cause Analysis
+
+![Root Cause Analysis](docs/screenshots/root-cause-analysis.png)
+
+## Recommended Actions
+
+![Recommended Actions](docs/screenshots/recommended-actions.png)
 
 ---
 
-## Intended Business Value
+# Project Structure
 
-EpiAgent PMO is designed to support:
-
-* Centralized portfolio and project-health visibility
-* Earlier visibility into blocked and critical work
-* Consistent and explainable delivery-risk assessment
-* AI-assisted interpretation of project-health signals
-* Management-oriented corrective-action recommendations
-* Better-informed project and portfolio decision workflows
-
-These are intended product benefits. No quantified customer ROI, adoption, or production performance claims are made for this portfolio implementation.
+![Project Structure](docs/project-structure.png)
 
 ---
 
-## My Role & Contribution
+# Setup
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Configure Environment
+
+```env
+SPLUNK_HOST=localhost
+SPLUNK_PORT=8089
+SPLUNK_USERNAME=your_splunk_username
+SPLUNK_PASSWORD=your_splunk_password
+SPLUNK_INDEX=epiagent
+AI_ENABLED=true
+```
+
+## Run Application
+
+```bash
+python app.py
+```
+
+---
+
+# Demo Workflow
+
+1. Start Splunk Enterprise
+2. Ingest the demonstrated tutorial/sample logs
+3. Run EpiAgent AIOps
+4. Review operational monitoring and system-health context
+5. Review detected rule-based anomalies
+6. Investigate structured incidents
+7. Review probable root-cause analysis
+8. Review response recommendations
+9. Review Gemini-assisted operational interpretation where AI is enabled
+10. Use the dashboards to support the human operational decision
+
+---
+
+# Intended Business Value
+
+EpiAgent AIOps is designed to support:
+
+- Centralized operational intelligence
+- Faster visibility into significant operational conditions
+- Structured incident investigation
+- Explainable rule-based anomaly detection
+- Probable root-cause analysis
+- Action-oriented response recommendations
+- AI-assisted interpretation of operational evidence
+- Reduced cognitive complexity when correlating multiple operational signals
+
+These are intended product benefits. No quantified customer MTTR, MTTD, downtime reduction, ROI, adoption, or production-performance claims are made for this portfolio implementation.
+
+---
+
+# My Role & Contribution
 
 **Role: End-to-End Product & Technical Lead**
 
-I independently owned EpiAgent PMO from problem definition through working implementation and delivery.
+I independently owned EpiAgent AIOps from problem definition through working implementation and project delivery.
 
-### Product & Project
+## Product & AIOps
 
-* Defined the project-governance problem and product concept
-* Identified target management workflows and users
-* Defined and prioritized the MVP scope
-* Designed the portfolio and project decision-support workflow
-* Managed the project end-to-end through delivery and demonstration
+- Defined the operational problem and product concept
+- Identified target users and operational use cases
+- Defined and prioritized the MVP scope
+- Designed the Observe → Detect → Investigate → Diagnose → Respond workflow
+- Structured the monitoring, anomaly, incident, root-cause, and response capabilities
 
-### AI Product Strategy
+## AI Product Strategy
 
-* Defined the AI use case and recommendation workflow
-* Designed the boundary between deterministic risk analytics and generative AI
-* Integrated Gemini into the management decision-support workflow
-* Kept final project-management decisions under human oversight
+- Defined Gemini's role in the operational workflow
+- Designed the boundary between deterministic operational intelligence and generative AI
+- Designed the specialized agent workflow
+- Implemented AI-enabled/AI-disabled operating modes
+- Preserved human control over operational decisions and remediation
 
-### Architecture & Engineering
+## Architecture & Engineering
 
-* Designed the solution architecture
-* Implemented the application and service components
-* Integrated GitLab project and issue data
-* Implemented deterministic risk-analysis logic
-* Integrated Gemini for executive recommendations
-* Developed portfolio and project dashboard workflows
-* Containerized the application with Docker
-* Prepared the application for Google Cloud Run deployment
+- Designed the solution architecture
+- Integrated the application with Splunk Enterprise
+- Developed SPL-based operational data workflows
+- Implemented deterministic operational rules
+- Implemented the specialized operational agents
+- Integrated Gemini for AI-assisted interpretation
+- Developed the Flask/Jinja2 dashboard experience
+- Integrated and validated the end-to-end investigation workflow
 
-### Delivery
+## Delivery
 
-* Managed scope and technical execution
-* Integrated and validated the end-to-end workflow
-* Prepared project documentation and technical evidence
-* Produced the working demonstration
-* Completed the project delivery/submission
+- Managed project scope and technical execution
+- Built and integrated the working MVP
+- Validated the operational workflow
+- Prepared architecture, screenshots, and project documentation
+- Completed the project demonstration/submission
 
 ---
 
-## Limitations
+# Challenges & Engineering Considerations
+
+Key challenges addressed during the project included:
+
+- Transforming raw observability data into structured operational intelligence
+- Designing a staged incident-investigation workflow
+- Integrating Python services with Splunk APIs and SDKs
+- Developing SPL queries that provide meaningful operational signals
+- Converting search results into structured agent inputs
+- Separating deterministic operational analysis from generative-AI interpretation
+- Maintaining useful core analysis when AI is disabled or unavailable
+- Balancing implementation scope within a time-bounded project delivery
+
+---
+
+# Key Outcomes
+
+The project delivered:
+
+- A working AIOps MVP integrated with Splunk Enterprise
+- Live SPL-based operational data retrieval
+- Five specialized operational agents
+- Deterministic monitoring and anomaly-analysis logic
+- Structured incident-investigation workflow
+- Probable root-cause analysis
+- Action-oriented response recommendations
+- Gemini-assisted operational interpretation
+- AI-off fallback capability
+- End-to-end operational intelligence dashboards
+
+These are implementation outcomes, not claims of customer adoption or quantified production impact.
+
+---
+
+# Limitations
 
 This portfolio implementation has deliberate boundaries:
 
-* Project-health analysis depends on the quality and completeness of available GitLab project/issue data
-* Risk weights are predefined deterministic rules
-* Gemini recommendations are advisory and may require management validation
-* The application does not autonomously execute project-management actions
-* No customer adoption, quantified ROI, or validated prediction-accuracy claims are made
-* Comprehensive enterprise controls such as organization-wide SSO/RBAC, formal compliance controls, and production-scale operational governance are outside the demonstrated scope unless otherwise evidenced
+- Analysis depends on the availability and quality of Splunk telemetry
+- The demonstrated dataset uses Splunk tutorial/sample logs
+- Anomaly detection is based on predefined rules and thresholds rather than a trained ML anomaly model
+- Root-cause analysis identifies probable causes and does not guarantee causal determination
+- Gemini output may require operational validation
+- Gemini can be disabled or unavailable; core rule-based analysis remains available
+- Response recommendations are not automatically executed
+- No dedicated predictive service-degradation model or implemented Prediction Agent is claimed
+- No quantified customer outcomes, production MTTR/MTTD improvements, or validated prediction-accuracy claims are made
+- Enterprise-scale production controls are outside the demonstrated scope unless separately evidenced
 
 ---
 
-## Future Scope — Not Implemented
+# Future Scope — Not Implemented
 
 Potential future evolution includes:
 
-* Cross-project risk correlation
-* Resource forecasting
-* Budget risk analysis
-* Broader portfolio governance
-* Multi-project risk intelligence
-* Extended executive decision support
-* More advanced project-governance automation
+- Real-time streaming data support
+- Advanced statistical or machine-learning anomaly detection
+- Predictive service-degradation analysis
+- Automated remediation workflows with appropriate controls
+- Additional cloud and DevOps platform integrations
+- Enterprise-scale observability support
+- Multi-environment monitoring
+- Operational copilots
+- Extended autonomous decision-support capabilities
 
 These items represent future possibilities and are **not part of the current implemented MVP**.
 
 ---
 
-## Project Status
+# Project Status
 
 **Status: Working MVP / Portfolio Case Study**
 
-EpiAgent PMO demonstrates an end-to-end AI-assisted project-governance workflow combining:
+EpiAgent AIOps demonstrates an end-to-end AI-assisted operational intelligence workflow combining:
 
-**Enterprise Project Data + Explainable Risk Analytics + Generative AI + Management Decision Support**
+**Splunk Telemetry + Deterministic Operational Analysis + Specialized Agents + Generative AI + Human Decision Support**
 
-The project is presented as evidence of capability across:
+The project provides evidence of capability across:
 
-* AI Product Management
-* Product Management
-* Project / Portfolio Management
-* Product Ownership
-* AI-assisted enterprise software
-* Software architecture
-* Engineering and technical delivery
-* Enterprise integration
-* End-to-end product execution
-
----
-
-## Repository
-
-This repository contains the working EpiAgent PMO implementation, architecture evidence, dashboard screenshots, deployment configuration, and supporting documentation.
+- Technical Product Management
+- AI Product Management
+- Engineering Management
+- AIOps
+- Observability
+- Incident Management
+- Enterprise integration
+- AI-assisted operational workflows
+- Software architecture
+- End-to-end technical delivery
 
